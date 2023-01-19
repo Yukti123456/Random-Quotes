@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel ="stylesheet" src ="style.css"/>
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(228, 100, 9);
+        }
+        .container{
+            border: 2px solid white;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-top:100px ;
+            /*padding: 50px;*/
+            margin-left: 320px;
+            margin-right: 320px;
+            background-color: white;
+        }
+        .button{
+            margin: 76px;
+            width: 300px;
+            background-color: #ed774c;
+            font-size: 18px;;
+            font-family: 'Pacifico', cursive;
+            color: white;
+            border-color: orangered;
+
+        }
+        .text{
+             font-family: 'Pacifico', cursive;
+             font-size: 23px;;
+        }
+        img{
+           margin-left: 470px;
+           width:40px;
+           height: 40px;
+
+        }
+        #quotes{
+            color: rgb(11, 243, 165);
+        }
+      
+        #author{
+            margin-left: 300px;
+            color: #ed774c;
+
+        }
+    </style>
+</head>
+<body>
+   
+   <div class ="container">
+  
+    <div class ="inner">
+        <p class = "number">
+            <img src ="download.png" alt ="Twitter"
+            title ="TweetMe"
+            id ="Twitter"
+            />
+        </p>
+        <div class ="text">
+            <i class = "start-quote fas fa-quote-left"></i>
+            
+            <p id ="quotes" class ="quotes"></p>
+            <p id ="author" class ="author">by</p>
+        </div>
+        <button class ="button">
+            <p id ="newQ">new Quotes</p>
+        </button>
+    </div>
+   </div>
+
+   <script>
+    const quotes = document.getElementById("quotes");
+    const author = document.getElementById("author");
+    const newQ = document.getElementById("newQ");
+    const Twitter = document.getElementById("Twitter");
+    let realData ="";
+    let quotesData ="";
+    const tweetNow =() =>{
+        let url = `https://twitter.com/intent/tweet>text=${quotesData.text}`;
+        window.open(url);
+    };
+
+    const getNewQuotes = () =>{
+    let rnum =Math.floor( Math. random() * 10);
+    quotesData = realData[rnum];
+    quotes.innerText = `${quotesData.text}`;
+    quotesData.author == null
+        ?(author.innerText = unknown)
+        :(author.innerText= `${quotesData.author}`)
+   
+};
+    const getQuotes = async () => {
+    const api = "https://type.fit/api/quotes";
+        try{
+            let data = await fetch(api);//To fetch the api
+             realData = await data.json();
+            getNewQuotes();
+          // console.log(realData[10].text);
+           //console.log(realData[10].author);
+          }
+          catch(error){
+            
+        }
+    };
+
+    newQ.addEventListener("click",getNewQuotes);
+     Twitter.addEventListener("click",tweetNow);
+        
+        getQuotes();
+        
+   </script>
+</body>
+</html>
